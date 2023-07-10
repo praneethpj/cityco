@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "854228304119",
+    "project_id": "cityco-7f8d7",
+    "storage_bucket": "cityco-7f8d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854228304119:android:569f7c31f7dd51e25913f2",
+        "android_client_info": {
+          "package_name": "com.example.cityco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854228304119-4il24rqurs6qr59jpfuh70dhulk9k5h4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cityco",
+            "certificate_hash": "9bd7ae4b9f889ee4fb3b409d6a90e56eded2cacc"
+          }
+        },
+        {
+          "client_id": "854228304119-4ih2qm506c0d39im3a61eidl3v0338r8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKLywE5ug7CcVWC0WQ79GGfsoh7pIScE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854228304119-4ih2qm506c0d39im3a61eidl3v0338r8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
