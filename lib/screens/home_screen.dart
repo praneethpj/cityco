@@ -8,18 +8,34 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocConsumer<RoomBloc, RoomState>(
-      builder: (context, state) {
-        if (state is RoomLoading) {
-          return CircularProgressIndicator();
-        } else {
-          return Container(
-            child: Text("Home"),
-          );
-        }
-      },
-      listener: (context, state) {},
-    ));
+    return SafeArea(
+      child: Scaffold(body: BlocBuilder<RoomBloc, RoomState>(
+        builder: (context, state) {
+          if (state is RoomLoading) {
+            return CircularProgressIndicator();
+          } else if (state is RoomLoaded) {
+            return Row(
+              children: [
+                Text("Booking Count ${state.roomModel.length}"),
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: state.roomModel.length,
+                  itemBuilder: (context, index) {
+                    final room = state.roomModel[index];
+                    return GridTile(
+                      child: Text(room.name),
+                    );
+                  },
+                )
+              ],
+            );
+          } else {
+            return Text("Home");
+          }
+        },
+      )),
+    );
   }
 }

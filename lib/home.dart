@@ -13,31 +13,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-        create: (context) => AuthRepository(),
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => AuthBloc(
-                    authRepository:
-                        RepositoryProvider.of<AuthRepository>(context)),
-              ),
-              BlocProvider(
-                  create: (create) => RoomBloc(
-                      roomRepository:
-                          RepositoryProvider.of<RoomRepository>(context))
-                    ..add(RoomFetchAll()))
-            ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: "CityCo (Pvt) Ltd",
-              theme: ThemeData(),
-              initialRoute: "/",
-              routes: {
-                "/": (context) => AuthenticationScreen(),
-                "/home": (context) => HomeScreen(),
-                "/product": (context) => ProductDescription()
-              },
-            )));
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "CityCo (Pvt) Ltd",
+      theme: ThemeData(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => AuthenticationScreen(),
+        "/home": (context) => HomeScreen(),
+        "/product": (context) => ProductDescription()
+      },
+    );
   }
 }
