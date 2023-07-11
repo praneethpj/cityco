@@ -1,14 +1,16 @@
 class RoomModel {
-  final String roomId;
+  final String documentId;
   final String name;
   final String description;
-  final double pricePerDay;
+  final String image;
+  final num pricePerDay;
   final bool availability;
 
   RoomModel(
-      {required this.roomId,
+      {required this.documentId,
       required this.name,
       required this.description,
+      required this.image,
       required this.pricePerDay,
       required this.availability});
 }

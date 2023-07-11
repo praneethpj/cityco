@@ -10,6 +10,16 @@ class RoomInitiate extends RoomState {
   List<RoomModel> get props => [];
 }
 
+class RoomEmpty extends RoomState {
+  @override
+  List<RoomModel> get props => [];
+}
+
+class RoomGetByDocumentIdRequest extends RoomState {
+  final RoomModel roomModel;
+  RoomGetByDocumentIdRequest({required this.roomModel});
+}
+
 class RoomLoading extends RoomState {}
 
 class RoomLoaded extends RoomState {

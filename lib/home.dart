@@ -16,12 +16,12 @@ class Home extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "CityCo (Pvt) Ltd",
-      theme: ThemeData(),
-      initialRoute: "/",
+      theme: ThemeData.light(),
+      initialRoute: AuthenticationScreen.routeName,
       routes: {
-        "/": (context) => AuthenticationScreen(),
-        "/home": (context) => HomeScreen(),
-        "/product": (context) => ProductDescription()
+        AuthenticationScreen.routeName: (context) => AuthenticationScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+        ProductDescription.routeName: (context) => ProductDescription()
       },
     );
   }

@@ -11,9 +11,21 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   RoomBloc({required this.roomRepository}) : super(RoomInitiate()) {
     on<RoomFetchAll>((event, state) async {
       try {
-        roomRepository
-            .getAllBooking()
-            .then((roomModel) => emit(RoomLoaded(roomModel: roomModel)));
+        roomRepository.getAllRooms().then((roomModel) => {
+              if (roomModel.isNotEmpty)
+                {emit(RoomLoaded(roomModel: roomModel))}
+              else
+                {emit(RoomEmpty())}
+            });
+      } catch (e) {
+        emit(RoomError(message: e.toString()));
+      }
+    });
+
+    on<RoomGetByDocumentId>((event, state) async {
+      try {
+        roomRepository.getRoomByDocumentId(event.documentId).then((roomModel) =>
+            emit(RoomGetByDocumentIdRequest(roomModel: roomModel)));
       } catch (e) {
         emit(RoomError(message: e.toString()));
       }

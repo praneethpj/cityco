@@ -14,3 +14,8 @@ class RoomFetchAll extends RoomEvent {
   @override
   List<RoomModel> get props => [];
 }
+
+class RoomGetByDocumentId extends RoomEvent {
+  final String documentId;
+  RoomGetByDocumentId({required this.documentId});
+}
