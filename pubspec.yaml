@@ -43,6 +43,7 @@ dependencies:
   firestore_cache: ^2.3.0+1
   cached_network_image: ^3.2.3
   google_fonts: ^5.1.0
+  syncfusion_flutter_datepicker: ^22.1.38
 
 dev_dependencies:
   flutter_test:

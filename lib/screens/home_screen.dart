@@ -6,6 +6,7 @@ import 'package:cityco/configurations/app_constant.dart';
 import 'package:cityco/screens/product_description.dart';
 import 'package:cityco/widgets/customized_circular_indicator.dart';
 import 'package:cityco/widgets/home/room_status_widget_container.dart';
+import 'package:cityco/widgets/home/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,21 +74,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 5, right: 5),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFFFFFFF),
-                          prefixIcon: Icon(
+                      child: TextFieldWidget(
+                          readOnly: false,
+                          hintText: "search",
+                          icon: Icon(
                             Icons.search,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          hintText: ' Search',
-                        ),
-                      ),
+                          )),
                     ),
                     SizedBox(
                       height: _deviceSize.height / 40,

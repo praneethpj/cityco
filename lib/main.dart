@@ -1,5 +1,7 @@
 import 'package:cityco/blocs/authentication/auth_bloc.dart';
+import 'package:cityco/blocs/booking/booking_bloc.dart';
 import 'package:cityco/data/repositories/auth_repository.dart';
+import 'package:cityco/data/repositories/booking_repository.dart';
 import 'package:cityco/data/repositories/room_repository.dart';
 import 'package:cityco/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +21,9 @@ Future<void> main() async {
         RepositoryProvider(
           create: (context) => RoomRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => BookingRepository(),
+        )
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(
@@ -28,6 +33,11 @@ Future<void> main() async {
         BlocProvider(
             create: (context) => RoomBloc(
                 roomRepository: RepositoryProvider.of<RoomRepository>(context))
-              ..add(RoomFetchAll()))
+              ..add(RoomFetchAll())),
+        BlocProvider(
+            create: (context) => BookingBloc(
+                bookingRepository:
+                    RepositoryProvider.of<BookingRepository>(context))
+              ..add(BookingIniateEvent()))
       ], child: Home())));
 }
