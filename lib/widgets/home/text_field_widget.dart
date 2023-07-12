@@ -7,17 +7,20 @@ class TextFieldWidget extends StatelessWidget {
   final bool readOnly;
   final VoidCallback? onTap;
 
+  final Function(String?)? onChange;
   const TextFieldWidget(
       {super.key,
       required this.hintText,
       required this.icon,
       required this.readOnly,
-      this.onTap});
+      this.onTap,
+      this.onChange});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: onTap,
+      onChanged: onChange,
       readOnly: readOnly,
       decoration: InputDecoration(
         filled: true,

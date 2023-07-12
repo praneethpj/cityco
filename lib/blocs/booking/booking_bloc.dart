@@ -13,19 +13,61 @@ part 'booking_state.dart';
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {
   final BookingRepository bookingRepository;
-  BookingBloc({required this.bookingRepository}) : super(BookingInitiate()) {
-    on<BookingIniateEvent>((event, state) {
-      emit(BookingInitiate());
+
+  BookingBloc({required this.bookingRepository})
+      : super(BookingInitiate(countOfBookedRooms: 0)) {
+    on<BookingIniateEvent>((event, state) async {
+      int numberOfBookedRoomCount =
+          await bookingRepository.getAllBookingCount();
+      emit(BookingInitiate(countOfBookedRooms: numberOfBookedRoomCount));
     });
 
-    on<SelectBookingRangeDate>((event, state) {
+    on<SelectBookingRangeDate>((event, state) async {
       try {
         bookingRepository
             .getCostPerRange(event.dateTimeRange, event.pricePerDay)
-            .then((pricePerRange) => emit(BookingGetDatePricePerRange(
-                pricePerRange: pricePerRange,
-                startDate: event.dateTimeRange.start,
-                endDate: event.dateTimeRange.end)));
+            .then((pricePerRange) => {
+                  emit(BookingGetDatePricePerRange(
+                      pricePerRange: pricePerRange,
+                      startDate: event.dateTimeRange.start,
+                      endDate: event.dateTimeRange.end))
+                });
+      } catch (e) {
+        emit(BookingSelectError(message: e.toString()));
+      }
+    });
+
+    on<CreateBooking>((event, state) async {
+      try {
+        RoomModel roomModel = bookingRepository.getRoomModel();
+        BookingModel bookingModel = BookingModel(
+            bookingDocumentId: "",
+            roomDocumentId: roomModel.documentId,
+            customerName: bookingRepository.getCustomerName(),
+            customerId: bookingRepository.getUid(),
+            roomName: roomModel.name,
+            startDate: bookingRepository.getSelectedDateRange().start,
+            endDate: bookingRepository.getSelectedDateRange().end,
+            totalPrice: bookingRepository.getTotalCostPerRange());
+
+        Future<bool> status = bookingRepository.makeBookingARoom(bookingModel);
+
+        if (await status) {
+          emit(BookingSuccess(message: "Your Booking has been Successed"));
+        } else {
+          emit(BookingFailed(
+              message:
+                  "Your Booking has been Failed. Some thing has happened wrong"));
+        }
+      } catch (e) {
+        emit(BookingSelectError(message: e.toString()));
+      }
+    });
+
+    on<CustomerNameEvent>((event, state) {
+      try {
+        print(event.name);
+        emit(CustomerNameState(name: event.name));
       } catch (e) {
         emit(BookingSelectError(message: e.toString()));
       }

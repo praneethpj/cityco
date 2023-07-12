@@ -6,8 +6,8 @@ abstract class BookingState extends Equatable {
 }
 
 class BookingInitiate extends BookingState {
-  @override
-  List<BookingModel> get props => [];
+  final int countOfBookedRooms;
+  BookingInitiate({required this.countOfBookedRooms});
 }
 
 class BookingLoading extends BookingState {}
@@ -20,6 +20,11 @@ class BookingLoaded extends BookingState {
 class BookingSuccess extends BookingState {
   final String message;
   BookingSuccess({required this.message});
+}
+
+class BookingFailed extends BookingState {
+  final String message;
+  BookingFailed({required this.message});
 }
 
 class BookingError extends BookingState {
@@ -40,9 +45,16 @@ class BookingGetDatePricePerRange extends BookingState {
       {required this.pricePerRange,
       required this.startDate,
       required this.endDate});
+  @override
+  List<BookingModel> get props => [];
 }
 
 class BookingSelectError extends BookingState {
   final String message;
   BookingSelectError({required this.message});
+}
+
+class CustomerNameState extends BookingState {
+  final String name;
+  CustomerNameState({required this.name});
 }

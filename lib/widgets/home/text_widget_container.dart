@@ -1,5 +1,6 @@
 import 'package:cityco/configurations/app_color.dart';
 import 'package:cityco/configurations/app_constant.dart';
+import 'package:cityco/helper/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,7 +38,7 @@ class TextWidgetContainer extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    "${priceSymbol} ${price.toString()}",
+                    "${priceSymbol} ${Formatter.priceFormatter(price)}",
                     style: GoogleFonts.abel(
                       color: cardTextColor,
                       fontSize: 20,

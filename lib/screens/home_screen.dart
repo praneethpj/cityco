@@ -5,6 +5,7 @@ import 'package:cityco/configurations/app_color.dart';
 import 'package:cityco/configurations/app_constant.dart';
 import 'package:cityco/screens/product_description.dart';
 import 'package:cityco/widgets/customized_circular_indicator.dart';
+import 'package:cityco/widgets/home/booking_count_widget.dart';
 import 'package:cityco/widgets/home/room_status_widget_container.dart';
 import 'package:cityco/widgets/home/text_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -97,20 +98,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: Text(
-                          //"Booking Count ${state.roomModel.length}"
-                          "We have recorded ${state.roomModel.length} Bookings",
-                          style: GoogleFonts.akshar(
-                            color: mainTextColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
+                    BookingCountWidget(),
                     SizedBox(
                       height: _deviceSize.height / 40,
                     ),

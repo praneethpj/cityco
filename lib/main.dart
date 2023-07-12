@@ -1,5 +1,6 @@
 import 'package:cityco/blocs/authentication/auth_bloc.dart';
 import 'package:cityco/blocs/booking/booking_bloc.dart';
+import 'package:cityco/blocs/textInput/text_input_bloc.dart';
 import 'package:cityco/data/repositories/auth_repository.dart';
 import 'package:cityco/data/repositories/booking_repository.dart';
 import 'package:cityco/data/repositories/room_repository.dart';
@@ -32,12 +33,19 @@ Future<void> main() async {
         ),
         BlocProvider(
             create: (context) => RoomBloc(
+                bookingRepository:
+                    RepositoryProvider.of<BookingRepository>(context),
                 roomRepository: RepositoryProvider.of<RoomRepository>(context))
               ..add(RoomFetchAll())),
         BlocProvider(
             create: (context) => BookingBloc(
                 bookingRepository:
                     RepositoryProvider.of<BookingRepository>(context))
-              ..add(BookingIniateEvent()))
+              ..add(BookingIniateEvent())),
+        BlocProvider(
+            create: (context) => TextInputBloc(
+                bookingRepository:
+                    RepositoryProvider.of<BookingRepository>(context))
+              ..add(TextInit())),
       ], child: Home())));
 }

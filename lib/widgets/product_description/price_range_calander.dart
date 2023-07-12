@@ -29,7 +29,6 @@ class PriceRangeCalender extends StatelessWidget {
                 " ${Formatter.dateFormatter(state.startDate)} - ${Formatter.dateFormatter(state.endDate)}",
             icon: Icon(Icons.calendar_today_outlined),
           );
-          ;
         } else {
           return CustomizedCircularIndicator();
         }
@@ -44,6 +43,7 @@ class PriceRangeCalender extends StatelessWidget {
 
     var selectedDateTimeRange = await dateTimeRange;
     if (dateTimeRange == null) return;
+
     context.read<BookingBloc>().add(SelectBookingRangeDate(
         dateTimeRange: selectedDateTimeRange!, pricePerDay: pricePerDay));
   }

@@ -10,10 +10,7 @@ class BookingIniateEvent extends BookingEvent {
   List<BookingModel> get props => [];
 }
 
-class CreateBooking extends BookingEvent {
-  final BookingModel bookingModel;
-  CreateBooking({required this.bookingModel});
-}
+class CreateBooking extends BookingEvent {}
 
 class SetPricePerDay extends BookingEvent {
   final num pricePerDay;
@@ -26,4 +23,11 @@ class SelectBookingRangeDate extends BookingEvent {
 
   SelectBookingRangeDate(
       {required this.dateTimeRange, required this.pricePerDay});
+  @override
+  List<BookingModel> get props => [];
+}
+
+class CustomerNameEvent extends BookingEvent {
+  final String name;
+  CustomerNameEvent({required this.name});
 }
