@@ -2,7 +2,7 @@ part of 'booking_bloc.dart';
 
 abstract class BookingState extends Equatable {
   @override
-  List<BookingModel> get props => [];
+  List<Object> get props => [];
 }
 
 class BookingInitiate extends BookingState {
@@ -46,7 +46,7 @@ class BookingGetDatePricePerRange extends BookingState {
       required this.startDate,
       required this.endDate});
   @override
-  List<BookingModel> get props => [];
+  List<Object> get props => [pricePerRange, startDate, endDate];
 }
 
 class BookingSelectError extends BookingState {
