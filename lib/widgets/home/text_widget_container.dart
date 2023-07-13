@@ -38,7 +38,7 @@ class TextWidgetContainer extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    "${priceSymbol} ${Formatter.priceFormatter(price)}",
+                    "${Formatter.priceFormatter(price)} ${priceSymbol}/Day",
                     style: GoogleFonts.abel(
                       color: cardTextColor,
                       fontSize: 20,

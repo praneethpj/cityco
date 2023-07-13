@@ -4,7 +4,7 @@ class RoomModel {
   final String description;
   final String image;
   final num pricePerDay;
-  final bool availability;
+  bool availability;
 
   RoomModel(
       {required this.documentId,

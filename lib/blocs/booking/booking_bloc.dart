@@ -24,14 +24,20 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
 
     on<SelectBookingRangeDate>((event, state) async {
       try {
-        bookingRepository
-            .getCostPerRange(event.dateTimeRange, event.pricePerDay)
-            .then((pricePerRange) => {
-                  emit(BookingGetDatePricePerRange(
-                      pricePerRange: pricePerRange,
-                      startDate: event.dateTimeRange.start,
-                      endDate: event.dateTimeRange.end))
-                });
+        bool isAvailableRoom = await bookingRepository
+            .getRoomAvailabilityByDateRange(event.dateTimeRange);
+        if (isAvailableRoom) {
+          bookingRepository
+              .getCostPerRange(event.dateTimeRange, event.pricePerDay)
+              .then((pricePerRange) => {
+                    emit(BookingGetDatePricePerRange(
+                        pricePerRange: pricePerRange,
+                        startDate: event.dateTimeRange.start,
+                        endDate: event.dateTimeRange.end))
+                  });
+        } else {
+          emit(RoomIsNotAvailble());
+        }
       } catch (e) {
         emit(BookingSelectError(message: e.toString()));
       }

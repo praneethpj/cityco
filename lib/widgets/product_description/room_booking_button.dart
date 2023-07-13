@@ -33,69 +33,64 @@ class RoomBookingButton extends StatelessWidget {
                   children: [
                     Icon(Icons.shopping_bag_outlined),
                     Text(
-                      "Book this Room at ${priceSymbol} ${Formatter.priceFormatter(roomModel.pricePerDay)}",
+                      "Book this Room at ${Formatter.priceFormatter(roomModel.pricePerDay)} ${priceSymbol}/Day",
                       style: GoogleFonts.abel(fontSize: 20),
                     ),
                   ],
                 ),
               ));
         } else if (state is BookingGetDatePricePerRange) {
-          return context
-                  .read<TextInputBloc>()
-                  .bookingRepository
-                  .getRoomModel()
-                  .availability
-              ? SizedBox(
-                  width: _deviceSize.width,
-                  height: _deviceSize.height / 15,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(buttonColor)),
-                    onPressed: () {
-                      String custometName = context
-                          .read<TextInputBloc>()
-                          .bookingRepository
-                          .getCustomerName();
+          return SizedBox(
+              width: _deviceSize.width,
+              height: _deviceSize.height / 15,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(buttonColor)),
+                onPressed: () {
+                  String custometName = context
+                      .read<TextInputBloc>()
+                      .bookingRepository
+                      .getCustomerName();
 
-                      if (custometName.isEmpty) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Please enter your name'),
-                        ));
-                      } else {
-                        context.read<BookingBloc>().add(CreateBooking());
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Icon(Icons.shopping_bag_outlined),
-                        Text(
-                          "Book this Room at ${priceSymbol} ${Formatter.priceFormatter(state.pricePerRange)}",
-                          style: GoogleFonts.abel(fontSize: 20),
-                        ),
-                      ],
+                  if (custometName.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Please enter your name'),
+                    ));
+                  } else {
+                    context.read<BookingBloc>().add(CreateBooking());
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(Icons.shopping_bag_outlined),
+                    Text(
+                      "Book This Room, Total ${Formatter.priceFormatter(state.pricePerRange)} ${priceSymbol}",
+                      style: GoogleFonts.abel(fontSize: 20),
                     ),
-                  ))
-              : SizedBox(
-                  width: _deviceSize.width,
-                  height: _deviceSize.height / 15,
-                  child: ElevatedButton(
-                    onPressed: null,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Icon(Icons.shopping_bag_outlined),
-                        Text(
-                          "This room is not available",
-                          style: GoogleFonts.abel(fontSize: 20),
-                        ),
-                      ],
+                  ],
+                ),
+              ));
+        } else if (state is RoomIsNotAvailble) {
+          return SizedBox(
+              width: _deviceSize.width,
+              height: _deviceSize.height / 15,
+              child: ElevatedButton(
+                onPressed: null,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(Icons.shopping_bag_outlined),
+                    Text(
+                      "Book this Room at ${Formatter.priceFormatter(roomModel.pricePerDay)} ${priceSymbol}/Day",
+                      style: GoogleFonts.abel(fontSize: 20),
                     ),
-                  ));
+                  ],
+                ),
+              ));
         } else {
           return CustomizedCircularIndicator();
         }

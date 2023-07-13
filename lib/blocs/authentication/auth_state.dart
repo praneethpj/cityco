@@ -16,3 +16,13 @@ class Authenticated extends AuthState {
   @override
   List<Object> get props => [];
 }
+
+class AuthInit extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class AuthSignOut extends AuthState {
+  @override
+  List<Object> get props => [];
+}

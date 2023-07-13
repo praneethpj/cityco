@@ -1,2 +1,2 @@
-var appName = "City Co";
+var appName = "CityCo";
 var priceSymbol = "LKR";

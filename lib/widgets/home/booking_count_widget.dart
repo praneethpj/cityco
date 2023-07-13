@@ -20,7 +20,7 @@ class BookingCountWidget extends StatelessWidget {
               margin: EdgeInsets.only(left: 10),
               child: Text(
                 //"Booking Count ${state.roomModel.length}"
-                "We have recorded ${state.countOfBookedRooms} Bookings",
+                "You have ${state.countOfBookedRooms} Bookings",
                 style: GoogleFonts.akshar(
                   color: mainTextColor,
                   fontSize: 16,

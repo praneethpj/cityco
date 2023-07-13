@@ -1,5 +1,6 @@
 import 'package:cityco/blocs/authentication/auth_bloc.dart';
 import 'package:cityco/blocs/room/room_bloc.dart';
+import 'package:cityco/configurations/app_color.dart';
 import 'package:cityco/data/repositories/auth_repository.dart';
 import 'package:cityco/data/repositories/room_repository.dart';
 import 'package:cityco/screens/authentication_screen.dart';
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "CityCo (Pvt) Ltd",
-      theme: ThemeData.light(),
+      theme: ThemeData(primarySwatch: themePrimaryColor),
       initialRoute: AuthenticationScreen.routeName,
       routes: {
         AuthenticationScreen.routeName: (context) => AuthenticationScreen(),

@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RoomRepository {
-  final firebaseRef = FirebaseFirestore.instance;
+  final _firebaseRef = FirebaseFirestore.instance;
 
-  final roomCollectionName = "room";
-  final bookingCollectionName = "booking";
+  final _roomCollectionName = "room";
+  final _bookingCollectionName = "booking";
 
   Future<List<RoomModel>> getAllRooms() async {
     Query<Map<String, dynamic>> collectionReference =
-        firebaseRef.collection(roomCollectionName).limit(5);
+        _firebaseRef.collection(_roomCollectionName).limit(5);
 
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await collectionReference.get();
@@ -34,7 +34,7 @@ class RoomRepository {
 
   Future<RoomModel> getRoomByDocumentId(String id) async {
     DocumentReference<Map<String, dynamic>> documentReference =
-        firebaseRef.collection(roomCollectionName).doc(id);
+        _firebaseRef.collection(_roomCollectionName).doc(id);
 
     Future<RoomModel> roomList =
         documentReference.get().then((data) => RoomModel(

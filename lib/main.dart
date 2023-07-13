@@ -29,7 +29,8 @@ Future<void> main() async {
       child: MultiBlocProvider(providers: [
         BlocProvider(
           create: (context) => AuthBloc(
-              authRepository: RepositoryProvider.of<AuthRepository>(context)),
+              authRepository: RepositoryProvider.of<AuthRepository>(context))
+            ..add(AuthInitEvent()),
         ),
         BlocProvider(
             create: (context) => RoomBloc(

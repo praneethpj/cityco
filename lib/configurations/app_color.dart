@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+var themePrimaryColor = Colors.green;
 var themeColor = Colors.white;
 var buttonColor = Colors.green;
 var snakeBarColor = Colors.green;

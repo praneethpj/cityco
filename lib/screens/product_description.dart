@@ -3,8 +3,6 @@ import 'package:cityco/blocs/booking/booking_bloc.dart';
 import 'package:cityco/blocs/room/room_bloc.dart';
 import 'package:cityco/blocs/textInput/text_input_bloc.dart';
 import 'package:cityco/configurations/app_color.dart';
-import 'package:cityco/configurations/app_constant.dart';
-import 'package:cityco/screens/home_screen.dart';
 import 'package:cityco/widgets/customized_circular_indicator.dart';
 import 'package:cityco/widgets/home/room_status_widget_container.dart';
 import 'package:cityco/widgets/product_description/price_range_calander.dart';
@@ -12,9 +10,9 @@ import 'package:cityco/widgets/product_description/room_booking_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../widgets/home/text_field_widget.dart';
+import '../widgets/base_app_bar.dart';
+import '../widgets/text_field_widget.dart';
 
 class ProductDescription extends StatelessWidget {
   static const String routeName = "/product_description";
@@ -25,9 +23,10 @@ class ProductDescription extends StatelessWidget {
     var _deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
+      appBar: BaseAppBar(
+        appBar: AppBar(),
+        homePage: false,
+        leading_icon_Button: IconButton(
             onPressed: () {
               context.read<RoomBloc>().add(RoomFetchAll());
               context.read<BookingBloc>().add(BookingIniateEvent());
@@ -38,31 +37,6 @@ class ProductDescription extends StatelessWidget {
               Icons.arrow_back,
               color: mainTextColor,
             )),
-        backgroundColor: themeColor,
-        centerTitle: true,
-        title: Text(
-          appName,
-          style: GoogleFonts.aBeeZee(
-              color: mainTextColor, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.account_circle_outlined,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.shopping_bag_outlined,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              // do something
-            },
-          )
-        ],
       ),
       body: SingleChildScrollView(
           child: BlocListener(
@@ -73,6 +47,10 @@ class ProductDescription extends StatelessWidget {
             context.read<BookingBloc>().add(BookingIniateEvent());
             context.read<BookingBloc>().bookingRepository.clear();
             Navigator.pop(context);
+          } else if (state is RoomIsNotAvailble) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text('Date range conflicts, Please select another range')));
           }
         },
         child: SafeArea(

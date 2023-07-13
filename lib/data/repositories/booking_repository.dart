@@ -20,8 +20,11 @@ class BookingRepository {
   }
 
   Future<int> getAllBookingCount() async {
-    Future<AggregateQuerySnapshot> bookingModelCount =
-        _collectionRef.collection(_bookingCollectionName).count().get();
+    Future<AggregateQuerySnapshot> bookingModelCount = _collectionRef
+        .collection(_bookingCollectionName)
+        .where("customerId", isEqualTo: getUid())
+        .count()
+        .get();
     AggregateQuerySnapshot numberOfRooms = await bookingModelCount;
     return numberOfRooms.count;
   }
@@ -31,6 +34,7 @@ class BookingRepository {
     final costPerRange = dateTimeRange.duration.inDays * perDayPrice;
     _dateTimeRange = dateTimeRange;
     _totalPrice = costPerRange;
+
     return costPerRange;
   }
 
@@ -67,6 +71,27 @@ class BookingRepository {
     _roomModel = roomModel;
   }
 
+  Future<bool> getRoomAvailabilityByDateRange(
+      DateTimeRange dateTimeRange) async {
+    final snapshot = await _collectionRef
+        .collection(_bookingCollectionName)
+        .where("roomDocumentId", isEqualTo: getRoomModel().documentId)
+        .get();
+
+    for (final doc in snapshot.docs) {
+      final bookingStartDate = doc.data()["startDate"].toDate();
+      final bookingEndDate = doc.data()["endDate"].toDate();
+
+      if (dateTimeRange.start.isBefore(bookingEndDate) &&
+          dateTimeRange.end.isAfter(bookingStartDate)) {
+        getRoomModel().availability = false;
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   RoomModel getRoomModel() {
     return _roomModel;
   }
@@ -86,5 +111,6 @@ class BookingRepository {
 
   void clear() {
     _customerName = "";
+    _roomModel.availability = true;
   }
 }

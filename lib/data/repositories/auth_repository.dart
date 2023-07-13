@@ -10,4 +10,12 @@ class AuthRepository {
       throw Exception(e.toString());
     }
   }
+
+  Future<bool> isUserLoggedIn() async {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  Future<void> setUserSignOut() async {
+    return FirebaseAuth.instance.signOut();
+  }
 }

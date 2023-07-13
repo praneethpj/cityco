@@ -36,14 +36,14 @@ class RoomStatusWidgetContainer extends StatelessWidget {
                   )
                 : Center(
                     child: Container(
-                      width: _deviceSize.width * 0.2,
+                      width: _deviceSize.width * 0.4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: availabilityNoColor,
                       ),
                       child: Center(
                         child: Text(
-                          "Not Available",
+                          "Booked,Availble",
                           style: GoogleFonts.abel(
                             color: cardTextColor,
                           ),

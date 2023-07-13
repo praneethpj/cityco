@@ -49,6 +49,11 @@ class BookingGetDatePricePerRange extends BookingState {
   List<Object> get props => [pricePerRange, startDate, endDate];
 }
 
+class RoomIsNotAvailble extends BookingState {
+  @override
+  List<Object> get props => [];
+}
+
 class BookingSelectError extends BookingState {
   final String message;
   BookingSelectError({required this.message});

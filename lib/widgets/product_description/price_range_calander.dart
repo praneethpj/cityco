@@ -1,6 +1,6 @@
 import 'package:cityco/helper/formatter.dart';
 import 'package:cityco/widgets/customized_circular_indicator.dart';
-import 'package:cityco/widgets/home/text_field_widget.dart';
+import 'package:cityco/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +29,15 @@ class PriceRangeCalender extends StatelessWidget {
                 " ${Formatter.dateFormatter(state.startDate)} - ${Formatter.dateFormatter(state.endDate)}",
             icon: Icon(Icons.calendar_today_outlined),
           );
+        } else if (state is RoomIsNotAvailble) {
+          return TextFieldWidget(
+            onTap: () => _showDateRangePicker(context, pricePerDate),
+            readOnly: true,
+            hintText: "Please Select different date range",
+            icon: Icon(Icons.calendar_today_outlined),
+          );
+        } else if (state is BookingSelectError) {
+          return Text("An error is Occured, Please refresh ${state.message}");
         } else {
           return CustomizedCircularIndicator();
         }
@@ -39,7 +48,10 @@ class PriceRangeCalender extends StatelessWidget {
   Future<void> _showDateRangePicker(
       BuildContext context, num pricePerDay) async {
     Future<DateTimeRange?> dateTimeRange = showDateRangePicker(
-        context: context, firstDate: DateTime(1900), lastDate: DateTime(2100));
+      context: context,
+      firstDate: DateTime.timestamp(),
+      lastDate: DateTime(2100),
+    );
 
     var selectedDateTimeRange = await dateTimeRange;
     if (dateTimeRange == null) return;
